@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AlugaCar.Model;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlugaCar.Controllers
 {
@@ -26,6 +23,15 @@ namespace AlugaCar.Controllers
             List<Model.Carros> listCarros = acessoBD.GetPlaca(placa);
 
             return listCarros;
+        }
+
+        [HttpPost]
+        public void SetCarro(Carros carro)
+        {
+           
+            Model.CamadaDeAcessoDados acessoBD = new Model.CamadaDeAcessoDados();
+            acessoBD.CadastraCarros(carro);
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AlugaCar.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -14,7 +14,7 @@ namespace AlugaCar.Controllers
             List<Model.Usuario> listUsuarios = acessoBD.GetListaDeUsuarios();
 
             return listUsuarios;
-    }
+        }
 
 
         [HttpGet("{cpf}")]
@@ -24,6 +24,15 @@ namespace AlugaCar.Controllers
             List<Model.Usuario> listUsuarios = acessoBD.GetUsuario(cpf);
 
             return listUsuarios;
+        }
+
+        [HttpPost]
+        public void SetUsuario(Usuario usuario)
+        {
+
+            Model.CamadaDeAcessoDados acessoBD = new Model.CamadaDeAcessoDados();
+            acessoBD.CadastraUsuario(usuario);
+
         }
     }
 }
