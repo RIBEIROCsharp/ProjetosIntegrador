@@ -13,7 +13,7 @@ namespace AlugaCar.Model
         {
                 List<Carros> lista = new List<Carros>();           
                         
-                MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=admin; database=alugacar; port=3306");
+                MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=root; database=alugacar; port=3306");
                 conexaoBd.Open(); // Abrir a conexão
                 var comando = conexaoBd.CreateCommand(); // Criando comando para consultas BD
                 comando.CommandText = "SELECT * FROM carros";// Especificando a consulta ao BD
@@ -35,6 +35,13 @@ namespace AlugaCar.Model
                 conexaoBd.Close();//É opcional fechar, pois pode manter ele aberto dependendo do que deseja ai tem q declarar como private ou static 
                 return lista;
 
+        }
+        public List<Carros> GetPlaca(string placa)
+        {
+            //buscar carros por Placa
+            List<Carros> lista = new List<Carros>();
+            lista = GetListaDeCarros().Where(x => x.placa == placa).ToList();
+            return lista;
         }
 
         public List<Usuario> GetListaDeUsuarios()
@@ -70,6 +77,41 @@ namespace AlugaCar.Model
             //buscar usuario por CPF
             List<Usuario> lista = new List<Usuario>();
             lista = GetListaDeUsuarios().Where(x => x.cpf == cpf).ToList();
+            return lista;
+        }
+        public List<Aluguel> GetListaDeAlugueis()
+        {
+            List<Aluguel> lista = new List<Aluguel>();
+
+            MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=admin; database=alugacar; port=3306");
+            conexaoBd.Open(); // Abrir a conexão
+            var comando = conexaoBd.CreateCommand(); // Criando comando para consultas BD
+            comando.CommandText = "SELECT * FROM usuario";// Especificando a consulta ao BD
+            var leitorDados = comando.ExecuteReader();// abre o datareader(Lê os dados) 
+            while (leitorDados.Read())//Read(Ele lê e se posiciona a linha seguinte)
+            {
+                var aluguel = new Aluguel();
+                aluguel.carro = leitorDados.GetString("carro");
+                aluguel.cod_aluguel = leitorDados.GetInt32("cod_aluguel");
+                aluguel.dia_inicio = leitorDados.GetDateTime("dia_inicio");
+                aluguel.dia_fim = leitorDados.GetDateTime("dia_fim");
+                aluguel.preco = leitorDados.GetFloat("preco");
+                aluguel.ativo = leitorDados.GetBoolean("ativo");
+                aluguel.usuario = leitorDados.GetString("usuario");
+                
+                lista.Add(aluguel);//Adiciona a lista
+            }
+            leitorDados.Close();// Sempre fechar
+            conexaoBd.Close();//É opcional fechar, pois pode manter ele aberto dependendo do que deseja ai tem q declarar como private ou static 
+            return lista;
+
+        }
+
+        public List<Aluguel> GetCodAluguel(Int32 cod_aluguel)
+        {
+            //buscar aluguel por COD_ALUGUEL
+            List<Aluguel> lista = new List<Aluguel>();
+            lista = GetListaDeAlugueis().Where(x => x.cod_aluguel == cod_aluguel).ToList();
             return lista;
         }
 

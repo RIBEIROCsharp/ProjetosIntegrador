@@ -1,5 +1,12 @@
-﻿namespace AlugaCar.Model
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AlugaCar.Model
 {
+    [Table("usuario")]
     public class Usuario
     {
         public string cpf { get; set; }

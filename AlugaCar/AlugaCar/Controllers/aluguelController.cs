@@ -5,27 +5,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace AlugaCar.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class carrosController : ControllerBase
+    public class aluguelController : ControllerBase
     {
-        public IEnumerable<Model.Carros> GetListaDeCarros()
+        public IEnumerable<Model.Aluguel> GetListaDeAlugueis()
         {
             Model.CamadaDeAcessoDados acessoBD = new Model.CamadaDeAcessoDados();
-            List<Model.Carros> listCarros = acessoBD.GetListaDeCarros();
+            List<Model.Aluguel> listAlugueis = acessoBD.GetListaDeAlugueis();
+
+            return listAlugueis;
+    }
 
 
-            return listCarros;
-        }
-        [HttpGet("{placa}")]
-        public IEnumerable<Model.Carros> GetPlaca(string placa)
+        [HttpGet("{cod_aluguel}")]
+        public IEnumerable<Model.Aluguel> GetAluguel(Int32 cod_aluguel)
         {
             Model.CamadaDeAcessoDados acessoBD = new Model.CamadaDeAcessoDados();
-            List<Model.Carros> listCarros = acessoBD.GetPlaca(placa);
+            List<Model.Aluguel> listCodAluguel = acessoBD.GetCodAluguel(cod_aluguel);
 
-            return listCarros;
+            return listCodAluguel;
         }
     }
 }
