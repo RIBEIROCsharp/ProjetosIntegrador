@@ -9,9 +9,9 @@ namespace AlugaCar.Model
         public string placa { get; set; }
         public string marca { get; set; }
         public string modelo { get; set; }
-        public Int32 fabricacao { get; set; }
-        public Int32 ano { get; set; }
-        public Int32 quilometragem { get; set; }
+        public int fabricacao { get; set; }
+        public int ano { get; set; }
+        public int quilometragem { get; set; }
         public float preco { get; set; }
         public Boolean disponivel { get; set; }
 

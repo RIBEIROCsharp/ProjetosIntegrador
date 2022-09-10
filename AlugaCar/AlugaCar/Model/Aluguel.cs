@@ -6,7 +6,7 @@ namespace AlugaCar.Model
     [Table("aluguel")]
     public class Aluguel
     {
-        public Int32 cod_aluguel { get; set; }
+        public int cod_aluguel { get; set; }
         public string carro { get; set; }
         public string usuario { get; set; }
         public DateTime dia_inicio { get; set; }

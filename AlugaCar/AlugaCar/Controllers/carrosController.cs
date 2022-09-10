@@ -33,5 +33,11 @@ namespace AlugaCar.Controllers
             acessoBD.CadastraCarros(carro);
 
         }
+        [HttpDelete]
+        public void DeleteCar(Carros carro)
+        {
+            Model.CamadaDeAcessoDados acessoBD = new Model.CamadaDeAcessoDados ();
+            acessoBD.DeleteCarros(carro);
+        }
     }
 }

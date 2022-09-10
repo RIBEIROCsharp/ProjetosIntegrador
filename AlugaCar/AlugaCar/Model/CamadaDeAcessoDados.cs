@@ -7,6 +7,7 @@ namespace AlugaCar.Model
 {
     public class CamadaDeAcessoDados
     {
+        
         public void CadastraCarros(Carros carro)
         {
             MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=admin; database=alugacar; port=3306");
@@ -27,6 +28,48 @@ namespace AlugaCar.Model
             conexaoBd.Close();
             GetListaDeUsuarios();
         }
+        public void CadastraAluguel(Aluguel aluguel)
+        {
+            MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=admin; database=alugacar; port=3306");
+            conexaoBd.Open(); // Abrir a conexão
+            var comando = conexaoBd.CreateCommand();
+            comando.CommandText = "INSERT INTO aluguel ('cod_aluguel', 'carro', 'usuario', 'dia_inicio', 'dia_fim', 'preco') values ('" + aluguel.cod_aluguel + "', '" + aluguel.carro + "', '" + aluguel.usuario + "','" + aluguel.dia_inicio + "', '" + aluguel.dia_fim + "', '" + aluguel.preco + "')";
+            comando.ExecuteNonQuery();
+            conexaoBd.Close();
+            GetListaDeAlugueis();
+        }
+
+        public void DeleteCarros(Carros carro)
+        {
+            MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=admin; database=alugacar; port=3306");
+            conexaoBd.Open(); // Abrir a conexão
+            var comando = conexaoBd.CreateCommand();
+            comando.CommandText = "DELETE FROM carros (`placa`, `marca`, `modelo`, `fabricacao`, `ano`, `quilometragem`, `preco`) values ('" + carro.placa + "','" + carro.marca + "','" + carro.modelo + "','" + carro.fabricacao + "','" + carro.ano + "','" + carro.quilometragem + "','" + carro.preco + "')";
+            comando.ExecuteNonQuery();
+            conexaoBd.Close();
+            GetListaDeCarros();            
+        }
+        public void DeleteAluguel(Aluguel aluguel)
+        {
+            MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=admin; database=alugacar; port=3306");
+            conexaoBd.Open(); // Abrir a conexão
+            var comando = conexaoBd.CreateCommand();
+            comando.CommandText = "DELETE FROM aluguel ('cod_aluguel', 'carro', 'usuario', 'dia_inicio', 'dia_fim', 'preco') values ('" + aluguel.cod_aluguel + "', '" + aluguel.carro + "', '" + aluguel.usuario + "','" + aluguel.dia_inicio + "', '" + aluguel.dia_fim + "', '" + aluguel.preco + "')";
+            comando.ExecuteNonQuery();
+            conexaoBd.Close();
+            GetListaDeAlugueis();
+        }
+        public void DeleteUsuario(Usuario usuario)
+        {
+            MySqlConnection conexaoBd = new MySqlConnection("server=localhost; user id=root;password=admin; database=alugacar; port=3306");
+            conexaoBd.Open(); // Abrir a conexão
+            var comando = conexaoBd.CreateCommand();
+            comando.CommandText = "DELETE FROM usuario (`cpf`, `nome`, `sobrenome`, `idade`, `genero`, `telefone`, `email`, `senha`) values ('" + usuario.cpf + "','" + usuario.nome + "','" + usuario.sobrenome + "','" + usuario.idade + "','" + usuario.genero + "','" + usuario.telefone + "','" + usuario.email + "','" + usuario.senha + "')";
+            comando.ExecuteNonQuery();
+            conexaoBd.Close();
+            GetListaDeAlugueis();
+        }
+
 
         public List<Carros> GetListaDeCarros()
         {
@@ -132,12 +175,7 @@ namespace AlugaCar.Model
             List<Aluguel> lista = new List<Aluguel>();
             lista = GetListaDeAlugueis().Where(x => x.cod_aluguel == cod_aluguel).ToList();
             return lista;
-        }
-
-        public Usuario AdicionaUsuario()
-        {
-            return null;
-        }
+        }        
 
     }
 }
